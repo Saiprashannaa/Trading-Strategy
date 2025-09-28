@@ -573,9 +573,10 @@ body {
         <div class="section-content">
             <div class="tab-container">
                 <div class="tabs">
-                    <button class="tab active" onclick="showTab('phase1')">Phase 1: Foundation</button>
-                    <button class="tab" onclick="showTab('phase2')">Phase 2: Acquisition</button>
-                    <button class="tab" onclick="showTab('phase3')">Phase 3: Scale</button>
+                    <button class="tab active" onclick="showTab('phase1', event)">Phase 1: Foundation</button>
+                    <button class="tab" onclick="showTab('phase2', event)">Phase 2: Acquisition</button>
+                    <button class="tab" onclick="showTab('phase3', event)">Phase 3: Scale</button>
+
                 </div>
                 
                 <div id="phase1" class="tab-content active">
@@ -828,9 +829,9 @@ body {
         <div class="section-content">
             <div class="tab-container">
                 <div class="tabs">
-                    <button class="tab active" onclick="showTab('best-case')">🚀 Best Case</button>
-                    <button class="tab" onclick="showTab('realistic')">🎯 Most Likely</button>
-                    <button class="tab" onclick="showTab('worst-case')">⚠️ Worst Case</button>
+                    <button class="tab active" onclick="showTab('best-case', event)">🚀 Best Case</button>
+                    <button class="tab" onclick="showTab('realistic', event)">🎯 Most Likely</button>
+                    <button class="tab" onclick="showTab('worst-case', event)">⚠️ Worst Case</button>
                 </div>
                 
                 <div id="best-case" class="tab-content active">
@@ -1148,14 +1149,18 @@ body {
     });
 
     // Tab functionality
-    function showTab(tabName) {
-        const contents = document.querySelectorAll('.tab-content');
+    function showTab(tabName, event) {
+        const container = event.target.closest('.tab-container');
+
+        // Only deactivate within this container
+        const contents = container.querySelectorAll('.tab-content');
         contents.forEach(content => content.classList.remove('active'));
 
-        const tabs = document.querySelectorAll('.tab');
+        const tabs = container.querySelectorAll('.tab');
         tabs.forEach(tab => tab.classList.remove('active'));
 
-        document.getElementById(tabName).classList.add('active');
+        // Activate the right tab + content
+        container.querySelector('#' + tabName).classList.add('active');
         event.target.classList.add('active');
     }
 </script>

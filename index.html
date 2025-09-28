@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nubra GTM Strategy: From Code to Cash</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #333;
+        line-height: 1.6;
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .hero {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        padding: 40px;
+        text-align: center;
+        margin-bottom: 40px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .hero h1 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        background: linear-gradient(45deg, #fff, #f0f8ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 20px;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.4rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 30px;
+    }
+    
+    .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-top: 30px;
+    }
+    
+    .stat-card {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 25px;
+        border-radius: 15px;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
+    
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #667eea;
+        display: block;
+    }
+    
+    .stat-label {
+        color: #666;
+        font-size: 0.9rem;
+        margin-top: 5px;
+    }
+    
+    .section {
+        background: white;
+        margin-bottom: 30px;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .section-header {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        padding: 30px 40px;
+        position: relative;
+    }
+    
+    .section-header h2 {
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+    
+    .section-header p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+    }
+    
+    .section-content {
+        padding: 40px;
+    }
+    
+    .market-visual {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin: 30px 0;
+    }
+    
+    .market-segment {
+        background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+        padding: 30px;
+        border-radius: 15px;
+        border-left: 5px solid #667eea;
+    }
+    
+    .segment-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #334155;
+        margin-bottom: 15px;
+    }
+    
+    .segment-details {
+        color: #64748b;
+    }
+    
+    .timeline {
+        position: relative;
+        padding: 20px 0;
+    }
+    
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 30px;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: linear-gradient(to bottom, #667eea, #764ba2);
+    }
+    
+    .timeline-item {
+        position: relative;
+        margin-bottom: 40px;
+        padding-left: 80px;
+    }
+    
+    .timeline-marker {
+        position: absolute;
+        left: 18px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: #667eea;
+        border: 3px solid white;
+        box-shadow: 0 0 0 3px #667eea;
+    }
+    
+    .timeline-content {
+        background: #f8fafc;
+        padding: 25px;
+        border-radius: 15px;
+        border-left: 4px solid #667eea;
+    }
+    
+    .timeline-title {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: #334155;
+        margin-bottom: 10px;
+    }
+    
+    .timeline-period {
+        color: #667eea;
+        font-weight: 500;
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+    }
+    
+    .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        margin: 30px 0;
+    }
+    
+    .metric-card {
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        padding: 30px;
+        border-radius: 15px;
+        border: 1px solid #e2e8f0;
+        transition: all 0.3s ease;
+    }
+    
+    .metric-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.15);
+    }
+    
+    .metric-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        background: #667eea;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+    }
+    
+    .metric-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #334155;
+        margin-bottom: 10px;
+    }
+    
+    .metric-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #667eea;
+        margin-bottom: 5px;
+    }
+    
+    .metric-description {
+        color: #64748b;
+        font-size: 0.9rem;
+    }
+    
+    .chart-container {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        margin: 20px 0;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    }
+    
+    .cta-section {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        padding: 50px;
+        text-align: center;
+        border-radius: 20px;
+        margin: 40px 0;
+    }
+    
+    .cta-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+    
+    .cta-subtitle {
+        font-size: 1.2rem;
+        opacity: 0.9;
+        margin-bottom: 30px;
+    }
+    
+    .persona-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        margin: 30px 0;
+    }
+    
+    .persona-card {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .persona-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    .persona-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+    
+    .persona-name {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: #334155;
+        margin-bottom: 10px;
+    }
+    
+    .persona-title {
+        color: #667eea;
+        font-weight: 500;
+        margin-bottom: 15px;
+    }
+    
+    .persona-story {
+        color: #64748b;
+        line-height: 1.6;
+    }
+    
+    .highlight-box {
+        background: linear-gradient(135deg, #fef3c7, #fde68a);
+        border-left: 5px solid #f59e0b;
+        padding: 25px;
+        border-radius: 15px;
+        margin: 25px 0;
+    }
+    
+    .highlight-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #92400e;
+        margin-bottom: 10px;
+    }
+    
+    .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin: 30px 0;
+    }
+    
+    .feature-item {
+        background: #f8fafc;
+        padding: 25px;
+        border-radius: 15px;
+        border: 1px solid #e2e8f0;
+    }
+    
+    .feature-item h4 {
+        color: #334155;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+    
+    .interactive-element {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        margin: 20px 0;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    }
+    
+    .tab-container {
+        margin: 20px 0;
+    }
+    
+    .tabs {
+        display: flex;
+        border-bottom: 2px solid #e2e8f0;
+        margin-bottom: 20px;
+    }
+    
+    .tab {
+        padding: 15px 25px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-weight: 500;
+        color: #64748b;
+        border-bottom: 3px solid transparent;
+        transition: all 0.3s ease;
+    }
+    
+    .tab.active {
+        color: #667eea;
+        border-bottom-color: #667eea;
+    }
+    
+    .tab-content {
+        display: none;
+        animation: fadeIn 0.3s ease;
+    }
+    
+    .tab-content.active {
+        display: block;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .success-indicator {
+        display: inline-flex;
+        align-items: center;
+        background: #10b981;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin: 5px;
+    }
+    
+    .risk-indicator {
+        display: inline-flex;
+        align-items: center;
+        background: #ef4444;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin: 5px;
+    }
+    
+    @media (max-width: 768px) {
+        .hero h1 {
+            font-size: 2.5rem;
+        }
+        .market-visual {
+            grid-template-columns: 1fr;
+        }
+        .container {
+            padding: 10px;
+        }
+        .section-content {
+            padding: 20px;
+        }
+    }
+</style>
+</head>
+<body>
+<div class="container">
+<!-- Hero Section -->
+<div class="hero">
+<h1><span role="img" aria-label="rocket">🚀</span> From Code to Cash</h1>
+<p class="hero-subtitle">How Nubra Will Turn Every Engineer in India into a Systematic Trader</p>
+<div class="hero-stats">
+            <div class="stat-card">
+                <span class="stat-number">15.5M</span>
+                <div class="stat-label">Engineers in India</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">50K</span>
+                <div class="stat-label">Year 1 Target Users</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">₹580Cr</span>
+                <div class="stat-label">Total Market Opportunity</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">0.32%</span>
+                <div class="stat-label">Market Penetration Goal</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Big Opportunity -->
+    <div class="section">
+        <div class="section-header">
+            <h2><span role="img" aria-label="lightbulb">💡</span> The Big Opportunity</h2>
+            <p>Why Engineers Are the Perfect Traders (And Why No One's Targeting Them Properly)</p>
+        </div>
+        <div class="section-content">
+            <div class="highlight-box">
+                <div class="highlight-title">🎯 Core Insight</div>
+                <p>Engineers think in systems, love data, and build automated solutions. Yet traditional trading platforms treat them like everyone else. Nubra changes this by offering institutional-grade tools with the customization and automation engineers crave.</p>
+            </div>
+
+            <!-- User Personas -->
+            <div class="persona-cards">
+                <div class="persona-card">
+                    <div class="persona-avatar">👨‍💻</div>
+                    <div class="persona-name">Rahul</div>
+                    <div class="persona-title">Software Engineer, Bangalore</div>
+                    <div class="persona-story">
+                        "I earn ₹12L annually but my money just sits in savings. I want to trade systematically like I code - with logic, backtesting, and automation. Current platforms feel too basic for my analytical mindset."
+                    </div>
+                </div>
+                
+                <div class="persona-card">
+                    <div class="persona-avatar">👩‍🔧</div>
+                    <div class="persona-name">Priya</div>
+                    <div class="persona-title">Mechanical Engineer, Pune</div>
+                    <div class="persona-story">
+                        "I understand complex systems and risk analysis from my engineering background. I want trading tools that match my technical expertise, not dumbed-down retail apps."
+                    </div>
+                </div>
+                
+                <div class="persona-card">
+                    <div class="persona-avatar">🎓</div>
+                    <div class="persona-name">Arjun</div>
+                    <div class="persona-title">Final Year CS Student, Delhi</div>
+                    <div class="persona-story">
+                        "Got placed at ₹8L package. Want to start building wealth early through systematic trading. Need a platform that teaches me while letting me experiment safely."
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Market Sizing -->
+    <div class="section">
+        <div class="section-header">
+            <h2><span role="img" aria-label="barchart">📊 Market Sizing: The Numbers Game</h2>
+            <p>Breaking Down India's Engineering Goldmine</p>
+        </div>
+        <div class="section-content">
+            <div class="chart-container">
+                <canvas id="marketChart" width="400" height="200"></canvas>
+            </div>
+            
+            <div class="market-visual">
+                <div class="market-segment">
+                    <div class="segment-title">🎯 Software Engineers (6.2M)</div>
+                    <div class="segment-details">
+                        <strong>Income:</strong> ₹4-25L annually<br>
+                        <strong>Why Perfect:</strong> API-comfortable, automation-loving<br>
+                        <strong>Concentration:</strong> Bangalore, Pune, Hyderabad<br>
+                        <strong>Year 1 Target:</strong> 25,000 users
+                    </div>
+                </div>
+                
+                <div class="market-segment">
+                    <div class="segment-title">⚙️ Core Engineers (5.4M)</div>
+                    <div class="segment-details">
+                        <strong>Income:</strong> ₹3-15L annually<br>
+                        <strong>Why Perfect:</strong> System thinkers, risk analyzers<br>
+                        <strong>Motivation:</strong> Alternate income sources<br>
+                        <strong>Year 1 Target:</strong> 20,000 users
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <div class="highlight-title">💰 Revenue Reality Check</div>
+                <p><strong>Year 1 Projection:</strong> 50,000 users × ₹7,500 average annual revenue = <strong>₹3.75 Crores</strong><br>
+                <strong>Market Potential:</strong> If we capture just 2% of all engineers = <strong>₹116 Crores annually</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Master Plan -->
+    <div class="section">
+        <div class="section-header">
+            <h2><span role="img" aria-label="a1">🗺️ The Master Plan: 12 Months to Market Leadership</h2>
+            <p>From Zero to Hero - How We'll Onboard 50,000 Engineers</p>
+        </div>
+        <div class="section-content">
+            <div class="tab-container">
+                <div class="tabs">
+                    <button class="tab active" onclick="showTab('phase1')">Phase 1: Foundation</button>
+                    <button class="tab" onclick="showTab('phase2')">Phase 2: Acquisition</button>
+                    <button class="tab" onclick="showTab('phase3')">Phase 3: Scale</button>
+                </div>
+                
+                <div id="phase1" class="tab-content active">
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">🎓 "Learn Before You Earn"</div>
+                            <div class="timeline-period">Months 1-3</div>
+                            <p><strong>Mission:</strong> Become the go-to educational resource for engineer-traders</p>
+                            
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <h4><span role="img" aria-label="b1">📺 "Trading for Engineers" Video Series</h4>
+                                    <p>50 episodes covering basics to advanced algorithmic strategies</p>
+                                </div>
+                                <div class="feature-item">
+                                    <h4><span role="img" aria-label="b2">🏫 University Partnerships</h4>
+                                    <p>Free workshops at top 100 engineering colleges</p>
+                                </div>
+                                <div class="feature-item">
+                                    <h4><span role="img" aria-label="b3">💬 Engineer Trading Community</h4>
+                                    <p>Discord server: "Engineers Who Trade" - 10K target</p>
+                                </div>
+                                <div class="feature-item">
+                                    <h4><span role="img" aria-label="b4">📚 API Documentation Hub</h4>
+                                    <p>Complete guides for custom trading integrations</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="phase2" class="tab-content">
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">🎯 "Built by Engineers, for Engineers"</div>
+                            <div class="timeline-period">Months 4-8</div>
+                            <p><strong>Mission:</strong> Convert educated audience into active traders</p>
+                            
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <h4><span role="img" aria-label="b5">🎮 21-Day Trading Bootcamp</h4>
+                                    <p>Gamified learning with progressively complex strategies</p>
+                                </div>
+                                <div class="feature-item">
+                                    <h4><span role="img" aria-label="b6">🏢 Corporate Partnerships</h4>
+                                    <p>Financial wellness programs at TCS, Infosys, startups</p>
+                                </div>
+                                <div class="feature-item">
+                                    <h4><span role="img" aria-label="b7">👥 Campus Ambassador Program</h4>
+                                    <p>500 student ambassadors across engineering colleges</p>
+                                </div>
+                                <div class="feature-item">
+                                    <h4><span role="img" aria-label="b8">🎨 Custom Dashboard Builder</h4>
+                                    <p>Let engineers build their own trading interfaces</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="phase3" class="tab-content">
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">🚀 "Master Your Trading System"</div>
+                            <div class="timeline-period">Months 9-12</div>
+                            <p><strong>Mission:</strong> Scale to 50K users and build retention moats</p>
+                            
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <h4><span role="img" aria-label="c1">🛒 Strategy Marketplace</h4>
+                                    <p>Users can share/sell trading algorithms to peers</p>
+                                </div>
+                                <div class="feature-item">
+                                    <h4><span role="img" aria-label="c2">🏆 Inter-College Competitions</h4>
+                                    <p>IIT vs NIT trading challenges with cash prizes</p>
+                                </div>
+                                <div class="feature-item">
+                                    <h4><span role="img" aria-label="c4">🌍 Tier-2/3 City Expansion</h4>
+                                    <p>Target Kanpur, Trichy, Pilani engineering hubs</p>
+                                </div>
+                                <div class="feature-item">
+                                    <h4><span role="img" aria-label="c3">📱 Advanced Mobile App</h4>
+                                    <p>Full-featured trading optimized for engineers</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Tracking -->
+    <div class="section">
+        <div class="section-header">
+            <h2><span role="img" aria-label="a2">📈 How We'll Track Our Success</h2>
+            <p>Data-Driven Optimization: The Engineer's Way</p>
+        </div>
+        <div class="section-content">
+            <div class="highlight-box">
+                <div class="highlight-title">🔍 Our Analysis Framework</div>
+                <p>Like any good engineering system, we'll monitor inputs, processes, and outputs with real-time dashboards and automated alerts.</p>
+            </div>
+
+            <div class="interactive-element">
+                <h3><span role="img" aria-label="barchart">📊 Success Measurement Dashboard</h3>
+                <div class="chart-container">
+                    <canvas id="metricsChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+
+            <!-- Analysis Methods -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-icon">📱</div>
+                    <div class="metric-title">Daily Monitoring</div>
+                    <div class="metric-description">
+                        • New user registrations<br>
+                        • Platform usage patterns<br>
+                        • Trading volume trends
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon">📅</div>
+                    <div class="metric-title">Weekly Deep Dives</div>
+                    <div class="metric-description">
+                        • Feature adoption rates<br>
+                        • User journey analysis<br>
+                        • Community engagement
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon">📋</div>
+                    <div class="metric-title">Monthly Reviews</div>
+                    <div class="metric-description">
+                        • Cohort performance<br>
+                        • Revenue per user<br>
+                        • Churn analysis
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon">🎯</div>
+                    <div class="metric-title">Quarterly Strategy</div>
+                    <div class="metric-description">
+                        • Market penetration<br>
+                        • Competitive positioning<br>
+                        • ROI optimization
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Key Metrics -->
+    <div class="section">
+        <div class="section-header">
+            <h2><span role="img" aria-label="a3">🎯 The 7 Metrics That Matter Most</h2>
+            <p>Focusing on What Drives Real Business Impact</p>
+        </div>
+        <div class="section-content">
+            <div class="highlight-box">
+                <div class="highlight-title">🎪 The North Star Metrics</div>
+                <p>Instead of tracking 25 vanity metrics, we focus on 7 core KPIs that directly correlate with business success and user satisfaction.</p>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-icon">👥</div>
+                    <div class="metric-title">Active Engineers</div>
+                    <div class="metric-value">50,000</div>
+                    <div class="metric-description">Total registered users by Month 12</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon">💰</div>
+                    <div class="metric-title">Monthly Revenue</div>
+                    <div class="metric-value">₹3.1Cr</div>
+                    <div class="metric-description">Monthly recurring revenue target</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon">📈</div>
+                    <div class="metric-title">Growth Rate</div>
+                    <div class="metric-value">15%</div>
+                    <div class="metric-description">Month-over-month user growth</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon">❤️</div>
+                    <div class="metric-title">User Love (NPS)</div>
+                    <div class="metric-value">50+</div>
+                    <div class="metric-description">Net Promoter Score among engineers</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon">🔄</div>
+                    <div class="metric-title">Retention Rate</div>
+                    <div class="metric-value">92%</div>
+                    <div class="metric-description">Monthly user retention target</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon">⚡</div>
+                    <div class="metric-title">Feature Adoption</div>
+                    <div class="metric-value">80%</div>
+                    <div class="metric-description">Users utilizing advanced tools</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon">💡</div>
+                    <div class="metric-title">LTV:CAC Ratio</div>
+                    <div class="metric-value">12:1</div>
+                    <div class="metric-description">Lifetime value to acquisition cost</div>
+                </div>
+            </div>
+
+            <!-- Success Indicators -->
+            <div style="margin-top: 30px;">
+                <h3><span role="img" aria-label="a8">🚦 Success Indicators by Quarter</h3>
+                <div style="margin: 20px 0;">
+                    <div class="success-indicator">Q1: 5,000 registered engineers</div>
+                    <div class="success-indicator">Q2: 15,000 active users</div>
+                    <div class="success-indicator">Q3: 30,000 users, ₹1.5Cr revenue</div>
+                    <div class="success-indicator">Q4: 50,000 users, ₹3.1Cr MRR</div>
+                </div>
+                
+                <div style="margin: 20px 0;">
+	        <h4><span role="img" aria-label="alert">⚠️ Red Flag Alerts</h4>
+                    <div class="risk-indicator">Monthly growth < 10%</div>
+                    <div class="risk-indicator">Churn rate > 12%</div>
+                    <div class="risk-indicator">NPS score < 30</div>
+                    <div class="risk-indicator">CAC > ₹2,000</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- What-If Scenarios -->
+    <div class="section">
+        <div class="section-header">
+            <h2><span role="img" aria-label="a4">🎲 What-If Scenarios: Planning for Reality</h2>
+            <p>Because Engineers Love Contingency Planning</p>
+        </div>
+        <div class="section-content">
+            <div class="tab-container">
+                <div class="tabs">
+                    <button class="tab active" onclick="showTab('best-case')">🚀 Best Case</button>
+                    <button class="tab" onclick="showTab('realistic')">🎯 Most Likely</button>
+                    <button class="tab" onclick="showTab('worst-case')">⚠️ Worst Case</button>
+                </div>
+                
+                <div id="best-case" class="tab-content active">
+                    <div class="highlight-box">
+                        <div class="highlight-title">🚀 Best Case Scenario (20% probability)</div>
+                        <p><strong>What happens:</strong> Viral growth in engineering communities, major partnerships with tech companies</p>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-title">Users by Year 1</div>
+                            <div class="metric-value">75,000</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-title">Monthly Revenue</div>
+                            <div class="metric-value">₹4.7Cr</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-title">Growth Rate</div>
+                            <div class="metric-value">25%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="realistic" class="tab-content">
+                    <div class="highlight-box">
+                        <div class="highlight-title">🎯 Most Likely Scenario (60% probability)</div>
+                        <p><strong>What happens:</strong> Steady organic growth, some challenges with user acquisition costs</p>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-title">Users by Year 1</div>
+                            <div class="metric-value">50,000</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-title">Monthly Revenue</div>
+                            <div class="metric-value">₹3.1Cr</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-title">Growth Rate</div>
+                            <div class="metric-value">15%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="worst-case" class="tab-content">
+                    <div class="highlight-box">
+                        <div class="highlight-title">⚠️ Worst Case Scenario (20% probability)</div>
+                        <p><strong>What happens:</strong> Market education takes longer, higher churn, competitive pressure</p>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-title">Users by Year 1</div>
+                            <div class="metric-value">25,000</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-title">Monthly Revenue</div>
+                            <div class="metric-value">₹1.6Cr</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-title">Growth Rate</div>
+                            <div class="metric-value">8%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-grid">
+                        <div class="feature-item">
+                            <h4><span role="img" aria-label="d1">🛠️ Pivot Strategy 1</h4>
+                            <p>Focus only on software engineers in metro cities</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4><span role="img" aria-label="d2">🛠️ Pivot Strategy 2</h4>
+                            <p>Partner with existing platforms as a premium add-on</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4><span role="img" aria-label="d3">🛠️ Pivot Strategy 3</h4>
+                            <p>Become a B2B2C solution for companies</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Why This Will Work -->
+    <div class="section">
+        <div class="section-header">
+            <h2><span role="img" aria-label="a5">🔥 Why This Strategy Will Dominate</h2>
+            <p>The Secret Sauce: Understanding Engineer Psychology</p>
+        </div>
+        <div class="section-content">
+            <div class="persona-cards">
+                <div class="persona-card">
+                    <div class="persona-avatar">🧠</div>
+                    <div class="persona-name">Systems Thinking</div>
+                    <div class="persona-story">
+                        Engineers naturally think in systems, processes, and workflows. Traditional trading platforms offer tools; Nubra offers a complete trading system with customization, automation, and deep analytics.
+                    </div>
+                </div>
+                
+                <div class="persona-card">
+                    <div class="persona-avatar">📊</div>
+                    <div class="persona-name">Data-Driven Decisions</div>
+                    <div class="persona-story">
+                        Engineers trust data over emotions. Nubra's backtesting, strategy builders, and comprehensive analytics speak their language better than generic "buy low, sell high" advice.
+                    </div>
+                </div>
+                
+                <div class="persona-card">
+                    <div class="persona-avatar">🔧</div>
+                    <div class="persona-name">Customization Culture</div>
+                    <div class="persona-story">
+                        Engineers customize their IDEs, terminals, and workflows. They'll love Nubra's API access, custom dashboard builders, and ability to integrate with their existing tools.
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <div class="highlight-title">💡 The Competitive Moat</div>
+                <p>While Zerodha and Groww compete on price and simplicity, Nubra competes on sophistication and customization. It's like comparing Notepad to VS Code - both are text editors, but engineers know which one they prefer.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Implementation Timeline -->
+    <div class="section">
+        <div class="section-header">
+            <h2><span role="img" aria-label="a6">⏰ Month-by-Month Action Plan</h2>
+            <p>Detailed Implementation Roadmap</p>
+        </div>
+        <div class="section-content">
+            <div class="interactive-element">
+                <canvas id="timelineChart" width="400" height="300"></canvas>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Month 1-2: Foundation</div>
+                        <div class="timeline-period">Build, Create, Launch</div>
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <h4>Week 1-2: Content Creation</h4>
+                                <p>• Launch "Trading for Engineers" blog<br>
+                                • Create first 10 educational videos<br>
+                                • Set up Discord community</p>
+                            </div>
+                            <div class="feature-item">
+                                <h4>Week 3-4: Partnership Outreach</h4>
+                                <p>• Contact top 20 engineering colleges<br>
+                                • Reach out to engineering YouTubers<br>
+                                • Set up university workshop program</p>
+                            </div>
+                            <div class="feature-item">
+                                <h4>Week 5-6: Platform Enhancement</h4>
+                                <p>• Improve onboarding for engineers<br>
+                                • Add API documentation<br>
+                                • Create sandbox environment</p>
+                            </div>
+                            <div class="feature-item">
+                                <h4>Week 7-8: Community Building</h4>
+                                <p>• Launch first university workshops<br>
+                                • Start LinkedIn content strategy<br>
+                                • Begin influencer partnerships</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="cta-section">
+        <div class="cta-title">🎯 Ready to Engineer India's Trading Future?</div>
+        <div class="cta-subtitle">This isn't just a GTM strategy - it's a blueprint for creating India's most sophisticated trading community</div>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px;">
+            <div style="background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 15px;">
+                <div style="font-size: 1.8rem; font-weight: 700;">15.5M</div>
+                <div>Engineers waiting for the right platform</div>
+            </div>
+            <div style="background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 15px;">
+                <div style="font-size: 1.8rem; font-weight: 700;">₹580Cr</div>
+                <div>Total market opportunity</div>
+            </div>
+            <div style="background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 15px;">
+                <div style="font-size: 1.8rem; font-weight: 700;">12 Months</div>
+                <div>To market leadership</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Market Sizing Chart
+    const marketCtx = document.getElementById('marketChart').getContext('2d');
+    new Chart(marketCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Software Engineers', 'Core Engineers', 'Engineering Students', 'Remaining Market'],
+            datasets: [{
+                data: [6.2, 5.4, 3.9],
+                backgroundColor: ['#667eea', '#764ba2', '#f093fb', '#f5f7fa'],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Target Market Breakdown (Millions)',
+                    font: { size: 16, weight: 'bold' }
+                },
+                legend: { position: 'bottom' },
+                datalabels: {
+                    color: '#fff',
+                    formatter: (value, ctx) => {
+                        let total = ctx.chart._metasets[0].total;
+                        let percentage = (value / total * 100).toFixed(1) + "%";
+                        return value + "M (" + percentage + ")";
+                    }
+                }
+            }
+        },
+        plugins: [ChartDataLabels]
+    });
+
+    // Metrics Progress Chart
+    const metricsCtx = document.getElementById('metricsChart').getContext('2d');
+    new Chart(metricsCtx, {
+        type: 'line',
+        data: {
+            labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+            datasets: [{
+                label: 'Users (000s)',
+                data: [5, 15, 30, 50],
+                borderColor: '#667eea',
+                backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                fill: true,
+                tension: 0.4
+            }, {
+                label: 'Revenue (Cr)',
+                data: [0.3, 1.0, 2.0, 3.1],
+                borderColor: '#764ba2',
+                backgroundColor: 'rgba(118, 75, 162, 0.1)',
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Projected Growth Trajectory',
+                    font: { size: 16, weight: 'bold' }
+                },
+                datalabels: {
+                    align: 'top',
+                    color: '#333',
+                    formatter: (value) => value
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        },
+        plugins: [ChartDataLabels]
+    });
+
+    // Timeline Chart
+    const timelineCtx = document.getElementById('timelineChart').getContext('2d');
+    new Chart(timelineCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+                label: 'New Users',
+                data: [500, 1500, 3000, 4000, 5000, 5500, 6000, 6500, 7000, 7500, 8000, 8500],
+                backgroundColor: 'rgba(102, 126, 234, 0.8)',
+                borderColor: '#667eea',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Monthly User Acquisition Target',
+                    font: { size: 16, weight: 'bold' }
+                },
+                datalabels: {
+                    anchor: 'end',
+                    align: 'top',
+                    color: '#333',
+                    formatter: (value) => value
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'New Users'
+                    }
+                }
+            }
+        },
+        plugins: [ChartDataLabels]
+    });
+
+    // Tab functionality
+    function showTab(tabName) {
+        const contents = document.querySelectorAll('.tab-content');
+        contents.forEach(content => content.classList.remove('active'));
+
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => tab.classList.remove('active'));
+
+        document.getElementById(tabName).classList.add('active');
+        event.target.classList.add('active');
+    }
+</script>
+</body>
+</html>
